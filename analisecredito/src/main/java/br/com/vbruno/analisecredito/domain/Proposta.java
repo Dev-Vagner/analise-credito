@@ -1,4 +1,4 @@
-package br.com.vbruno.notificacao.domain;
+package br.com.vbruno.analisecredito.domain;
 
 import lombok.Getter;
 import lombok.Setter;
