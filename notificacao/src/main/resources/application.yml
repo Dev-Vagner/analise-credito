@@ -19,3 +19,5 @@ spring:
 rabbitmq:
   proposta-pendente:
     queue: "proposta-pendente.ms-notificacao"
+  proposta-concluida:
+    queue: "proposta-concluida.ms-notificacao"

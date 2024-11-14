@@ -18,4 +18,10 @@ public class PropostaPendenteListener {
         String mensagem = String.format(MensagemConstante.PROPOSTA_EM_ANALISE, proposta.getUsuario().getNome());
         notificacaoEmailService.notificar(proposta.getUsuario().getEmail(), mensagem);
     }
+
+    @RabbitListener(queues = "${rabbitmq.proposta-concluida.queue}")
+    public void propostaConcluida(Proposta proposta) {
+        String mensagem = String.format(MensagemConstante.PROPOSTA_CONCLUIDA, proposta.getUsuario().getNome());
+        notificacaoEmailService.notificar(proposta.getUsuario().getEmail(), mensagem);
+    }
 }

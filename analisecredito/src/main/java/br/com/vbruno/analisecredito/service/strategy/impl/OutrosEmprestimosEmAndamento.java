@@ -2,9 +2,11 @@ package br.com.vbruno.analisecredito.service.strategy.impl;
 
 import br.com.vbruno.analisecredito.domain.Proposta;
 import br.com.vbruno.analisecredito.service.strategy.CalculoPonto;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 public class OutrosEmprestimosEmAndamento implements CalculoPonto {
 
     @Override

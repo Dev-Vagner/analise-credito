@@ -8,3 +8,5 @@ spring:
 rabbitmq:
   proposta-pendente:
     queue: "proposta-pendente.ms-analise-credito"
+  proposta-concluida:
+    exchange: "proposta-concluida.ex"
