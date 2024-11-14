@@ -18,3 +18,5 @@ spring:
 rabbitmq:
   proposta-pendente:
     exchange: "proposta-pendente.ex"
+  proposta-concluida:
+    exchange: "proposta-concluida.ex"
