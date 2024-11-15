@@ -1,4 +1,4 @@
-package br.com.vbruno.proposta.service;
+package br.com.vbruno.proposta.service.websocket;
 
 import br.com.vbruno.proposta.dto.response.PropostaResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -23,7 +23,6 @@ public class AnaliseCreditoService {
     private String exchangePropostaConcluida;
 
     public void analisar(Proposta proposta) {
-
         try {
             int pontos = calculoPontoList.stream().mapToInt(impl -> impl.calcular(proposta)).sum();
             proposta.setAprovada(pontos > 350);

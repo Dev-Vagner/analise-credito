@@ -4,7 +4,7 @@ import br.com.vbruno.proposta.dto.response.PropostaResponseDTO;
 import br.com.vbruno.proposta.entity.Proposta;
 import br.com.vbruno.proposta.mapper.PropostaMapper;
 import br.com.vbruno.proposta.repository.PropostaRepository;
-import br.com.vbruno.proposta.service.WebSocketService;
+import br.com.vbruno.proposta.service.websocket.WebSocketService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

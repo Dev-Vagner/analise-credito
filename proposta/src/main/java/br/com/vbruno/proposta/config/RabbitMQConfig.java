@@ -21,9 +21,13 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.proposta-concluida.exchange}")
     private String exchangePropostaConcluida;
 
+    @Value("${rabbitmq.proposta-pendente-dlx.exchange}")
+    private String exchangePropostaPendenteDLX;
+
     @Bean
     public Queue criarFilaPropostaPendenteMsAnaliseCredito() {
-        return QueueBuilder.durable("proposta-pendente.ms-analise-credito").build();
+        return QueueBuilder.durable("proposta-pendente.ms-analise-credito")
+                .deadLetterExchange(exchangePropostaPendenteDLX).build();
     }
 
     @Bean
@@ -42,6 +46,11 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue criarFilaPropostaPendenteDLQ() {
+        return QueueBuilder.durable("proposta-pendente.dlq").build();
+    }
+
+    @Bean
     public FanoutExchange criarFanoutExchangePropostaPendente() {
         return ExchangeBuilder.fanoutExchange(exchangePropostaPendente).build();
     }
@@ -49,6 +58,11 @@ public class RabbitMQConfig {
     @Bean
     public FanoutExchange criarFanoutExchangePropostaConcluida() {
         return ExchangeBuilder.fanoutExchange(exchangePropostaConcluida).build();
+    }
+
+    @Bean
+    public FanoutExchange criarFanoutExchangePropostaPendenteDLX() {
+        return ExchangeBuilder.fanoutExchange(exchangePropostaPendenteDLX).build();
     }
 
     @Bean
@@ -73,6 +87,12 @@ public class RabbitMQConfig {
     public Binding criarBindingPropostaConcluidaMSNotificacao() {
         return BindingBuilder.bind(criarFilaPropostaConcluidaMsNotificacao())
                 .to(criarFanoutExchangePropostaConcluida());
+    }
+
+    @Bean
+    public Binding criarBindingPropostaPendenteDLX() {
+        return BindingBuilder.bind(criarFilaPropostaPendenteDLQ())
+                .to(criarFanoutExchangePropostaPendenteDLX());
     }
 
     @Bean
