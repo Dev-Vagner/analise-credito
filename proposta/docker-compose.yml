@@ -1,0 +1,32 @@
+services:
+  proposta-service:
+    container_name: proposta-service
+    image: proposta-service
+    environment:
+      spring.profiles.active: prod
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+  rabbit-mq:
+    container_name: rabbit-mq-ac
+    image: rabbitmq:3-management
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      timeout: 5s
+      interval: 5s
+      retries: 3
+    ports:
+      - "5672:5672"
+  db:
+    container_name: postgresql-ac
+    image: postgres
+    environment:
+      POSTGRES_DB: proposta
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

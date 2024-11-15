@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/proposta
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+  rabbitmq:
+    host: rabbit-mq
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  proposta-pendente:
+    exchange: "proposta-pendente.ex"
+  proposta-pendente-dlx:
+    exchange: "proposta-pendente-dlx.ex"
+  proposta-concluida:
+    exchange: "proposta-concluida.ex"
+    queue: "proposta-concluida.ms-proposta"
