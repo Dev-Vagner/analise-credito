@@ -15,7 +15,10 @@ public class PropostaConcluidaListener {
 
     @RabbitListener(queues = "${rabbitmq.proposta-concluida.queue}")
     public void propostaConcluida(Proposta proposta) {
-        String mensagem = String.format(MensagemConstante.PROPOSTA_CONCLUIDA, proposta.getUsuario().getNome());
+        String mensagem = proposta.getAprovada() ?
+                String.format(MensagemConstante.PROPOSTA_APROVADA, proposta.getUsuario().getNome()) :
+                String.format(MensagemConstante.PROPOSTA_NEGADA, proposta.getUsuario().getNome());
+
         notificacaoEmailService.notificar(proposta.getUsuario().getEmail(), mensagem);
     }
 }
