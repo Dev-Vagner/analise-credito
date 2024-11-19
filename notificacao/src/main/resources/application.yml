@@ -21,6 +21,10 @@ spring:
 
 rabbitmq:
   proposta-pendente:
-    queue: "proposta-pendente.ms-notificacao"
+    exchange: "proposta-pendente.ex"
+    ms-notificacao:
+      queue: "proposta-pendente.ms-notificacao"
   proposta-concluida:
-    queue: "proposta-concluida.ms-notificacao"
+    exchange: "proposta-concluida.ex"
+    ms-notificacao:
+      queue: "proposta-concluida.ms-notificacao"

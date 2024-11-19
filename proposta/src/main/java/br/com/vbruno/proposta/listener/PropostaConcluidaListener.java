@@ -18,7 +18,7 @@ public class PropostaConcluidaListener {
     @Autowired
     private WebSocketService webSocketService;
 
-    @RabbitListener(queues = "${rabbitmq.proposta-concluida.queue}")
+    @RabbitListener(queues = "${rabbitmq.proposta-concluida.ms-proposta.queue}")
     public void propostaConcluida(Proposta proposta) {
         propostaRepository.atualizarProposta(proposta.getId(), proposta.getAprovada(), proposta.getObservacao());
 

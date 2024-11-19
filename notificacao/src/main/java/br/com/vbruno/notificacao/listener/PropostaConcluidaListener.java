@@ -13,7 +13,7 @@ public class PropostaConcluidaListener {
     @Autowired
     private NotificacaoEmailService notificacaoEmailService;
 
-    @RabbitListener(queues = "${rabbitmq.proposta-concluida.queue}")
+    @RabbitListener(queues = "${rabbitmq.proposta-concluida.ms-notificacao.queue}")
     public void propostaConcluida(Proposta proposta) {
         String mensagem = proposta.getAprovada() ?
                 String.format(MensagemConstante.PROPOSTA_APROVADA, proposta.getUsuario().getNome()) :

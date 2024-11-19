@@ -15,6 +15,10 @@ spring:
 
 rabbitmq:
   proposta-pendente:
-    queue: "proposta-pendente.ms-analise-credito"
+    exchange: "proposta-pendente.ex"
+    ms-analise-credito:
+      queue: "proposta-pendente.ms-analise-credito"
+      dlq: "proposta-pendente.ms-analise-credito.dlq"
+      dlx: "proposta-pendente.ms-analise-credito.dlx"
   proposta-concluida:
     exchange: "proposta-concluida.ex"
