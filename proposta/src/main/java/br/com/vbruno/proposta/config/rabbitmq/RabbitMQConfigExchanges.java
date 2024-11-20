@@ -12,8 +12,16 @@ public class RabbitMQConfigExchanges {
     @Value("${rabbitmq.proposta-concluida.exchange}")
     private String exchangePropostaConcluida;
 
+    @Value("${rabbitmq.proposta-concluida.ms-proposta.dlx}")
+    private String dlxPropostaConcluidaMsProposta;
+
     @Bean
     public FanoutExchange criarFanoutExchangePropostaConcluida() {
         return ExchangeBuilder.fanoutExchange(exchangePropostaConcluida).build();
+    }
+
+    @Bean
+    public FanoutExchange criarFanoutExchangePropostaConcluidaMsPropostaDlx() {
+        return ExchangeBuilder.fanoutExchange(dlxPropostaConcluidaMsProposta).build();
     }
 }

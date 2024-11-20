@@ -26,4 +26,16 @@ public class RabbitMQConfigBindings {
         return BindingBuilder.bind(configQueues.criarFilaPropostaConcluidaMsNotificacao())
                 .to(configExchanges.criarFanoutExchangePropostaConcluida());
     }
+
+    @Bean
+    public Binding criarBindingPropostaPendenteMsNotificacaoDlxDlq() {
+        return BindingBuilder.bind(configQueues.criarFilaPropostaPendenteMsNotificacaoDlq())
+                .to(configExchanges.criarFanoutExchangePropostaPendenteMsNotificacaoDlx());
+    }
+
+    @Bean
+    public Binding criarBindingPropostaConcluidaMsNotificacaoDlxDlq() {
+        return BindingBuilder.bind(configQueues.criarFilaPropostaConcluidaMsNotificacaoDlq())
+                .to(configExchanges.criarFanoutExchangePropostaConcluidaMsNotificacaoDlx());
+    }
 }

@@ -20,4 +20,10 @@ public class RabbitMQConfigBindings {
         return BindingBuilder.bind(configQueues.criarFilaPropostaConcluidaMsProposta())
                 .to(configExchanges.criarFanoutExchangePropostaConcluida());
     }
+
+    @Bean
+    public Binding criarBindingPropostaConcluidaMsPropostaDlxDlq() {
+        return BindingBuilder.bind(configQueues.criarFilaPropostaConcluidaMsPropostaDlq())
+                .to(configExchanges.criarFanoutExchangePropostaConcluidaMsPropostaDlx());
+    }
 }

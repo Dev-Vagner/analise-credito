@@ -7,6 +7,11 @@ spring:
     port: 5672
     username: guest
     password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
   mail:
     host: smtp.gmail.com
     port: 587
@@ -24,7 +29,11 @@ rabbitmq:
     exchange: "proposta-pendente.ex"
     ms-notificacao:
       queue: "proposta-pendente.ms-notificacao"
+      dlq: "proposta-pendente.ms-notificacao.dlq"
+      dlx: "proposta-pendente.ms-notificacao.dlx"
   proposta-concluida:
     exchange: "proposta-concluida.ex"
     ms-notificacao:
       queue: "proposta-concluida.ms-notificacao"
+      dlq: "proposta-concluida.ms-notificacao.dlq"
+      dlx: "proposta-concluida.ms-notificacao.dlx"
