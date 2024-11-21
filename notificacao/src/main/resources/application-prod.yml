@@ -1,0 +1,39 @@
+server:
+  port: 8082
+
+spring:
+  rabbitmq:
+    host: rabbit-mq
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_USERNAME}
+    password: ${GMAIL_APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+rabbitmq:
+  proposta-pendente:
+    exchange: "proposta-pendente.ex"
+    ms-notificacao:
+      queue: "proposta-pendente.ms-notificacao"
+      dlq: "proposta-pendente.ms-notificacao.dlq"
+      dlx: "proposta-pendente.ms-notificacao.dlx"
+  proposta-concluida:
+    exchange: "proposta-concluida.ex"
+    ms-notificacao:
+      queue: "proposta-concluida.ms-notificacao"
+      dlq: "proposta-concluida.ms-notificacao.dlq"
+      dlx: "proposta-concluida.ms-notificacao.dlx"

@@ -1,0 +1,80 @@
+services:
+  proposta-service:
+    image: proposta-service
+    container_name: proposta-service-ac
+    build:
+      context: ./proposta
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8080:8080"
+    networks:
+      - ac-network
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+  analise-credito-service:
+    image: analise-credito-service
+    container_name: analise-credito-service-ac
+    build:
+      context: ./analisecredito
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8081:8081"
+    networks:
+      - ac-network
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+  notificacao-service:
+    image: notificacao-service
+    container_name: notificacao-service-ac
+    build:
+      context: ./notificacao
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - GMAIL_USERNAME=${GMAIL_USERNAME}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+    ports:
+      - "8082:8082"
+    networks:
+      - ac-network
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+  rabbit-mq:
+    image: rabbitmq:3-management
+    container_name: rabbit-mq-ac
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - ac-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  db:
+    image: postgres
+    container_name: postgresql-ac
+    environment:
+      POSTGRES_DB: proposta
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - ac-network
+
+volumes:
+  db-data:
+
+networks:
+  ac-network:

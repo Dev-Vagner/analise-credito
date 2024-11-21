@@ -1,5 +1,11 @@
-FROM openjdk:17
+FROM maven:3.8.5-openjdk-17 AS build
+COPY src /app/src
+COPY pom.xml /app
+WORKDIR /app
+RUN mvn package spring-boot:repackage -X -DskipTests
 
-COPY target/notificacao-0.0.1-SNAPSHOT.jar notificacao.jar
-
-ENTRYPOINT ["java", "jar", "notificacao.jar"]
+FROM openjdk:17-jdk-slim
+COPY --from=build /app/target/notificacao-0.0.1-SNAPSHOT.jar /app/app.jar
+WORKDIR /app
+EXPOSE 8082
+CMD ["java", "-jar", "app.jar"]
